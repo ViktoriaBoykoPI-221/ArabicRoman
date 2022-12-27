@@ -1,0 +1,73 @@
+https://onlinegdb.com/Biif1JGrK
+/*******************************************
+ *  Автор: Бойко Виктория                  *
+ *  Дата: 20.11.2022                       *
+ *  Группа: ПИ-221                         *
+ *  Название: Римские и Арабские числа     *
+ *******************************************/
+ 
+#include <iostream>
+#include <string>
+#include <map>
+
+using namespace std;
+
+void romanNumbers(int number) {
+  int arabic[13] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+  string roman[13] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+  string result = "";
+  for (int index = 0; index < number ; ++index) {
+    for (int index = 0; index < 13; ++index){
+      while (number >= arabic[index]) {
+        result +=  roman[index];
+        number -= arabic[index];
+      }
+  }
+  cout << endl << "В Римской системе: " << result << endl;
+  }
+}
+
+void arabicNumbers(string meaning) {
+  map < char, int > roman;
+  roman['I'] = 1;
+  roman['V'] = 5;
+  roman['X'] = 10;
+  roman['L'] = 50;
+  roman['C'] = 100;
+  roman['D'] = 500;
+  roman['M'] = 1000;
+  int result = 0;
+  for (int index = 0; index < meaning.size(); ++index)  {
+    if (roman[meaning[index]] < roman[meaning[index + 1]]){
+      result += roman[meaning[index + 1]] - roman[meaning[index]];
+    } else {
+        result += roman[meaning[index]];
+      }
+    }
+  cout << endl << "В Арабской системе : " << result;
+}
+
+int main() {
+  int input;
+  cout << "1 = арабская система." << endl << "2 = римская система." << endl << endl;
+  cout << "Выберите команду: ";
+  cin  >> input;
+  cout << endl;
+  
+  if (input == 1) {
+    int number;
+    cout << "Число в арабской системе = ";
+    cin  >> number;
+    romanNumbers(number);
+  } 
+  if (input == 2) {
+    string meaning;
+    cout << "Число в римской системе = ";
+    cin  >> meaning;
+    arabicNumbers(meaning);
+  } 
+  if (input != 1 && input != 2) {
+    cout << "Нет команды!!!";
+  }
+  return 0;
+}
